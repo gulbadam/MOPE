@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation/Navigation";
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 // import InfoBox from './components/InfoBox/InfoBox';
+import Signin from './components/Signin/Signin';
 
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
@@ -105,6 +106,7 @@ class App extends Component {
           params={particlesoptions}/>
       <Navigation />
       <Logo />
+      <Signin />
       <Rank />
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
       <FaceRecognition box={this.state.box} imageUrl ={this.state.imageUrl}/>
