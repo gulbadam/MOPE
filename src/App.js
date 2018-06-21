@@ -49,7 +49,8 @@ class App extends Component {
     input: '',
     imageUrl: '',
     box: {},
-    colors: []
+    colors: [],
+    route: 'signin'
   }
   calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -97,22 +98,31 @@ class App extends Component {
         
       // },
       
-  
-
+  onRouteChange =(route)=> {
+    this.setState({route: route})
+  }
   render() {
     return (
       <div className="App">
         <Particles className="particles"
           params={particlesoptions}/>
-      <Navigation />
+      <Navigation onRouteChange={this.onRouteChange}/>
+      {this.state.route ==="signin"
+       ? <Signin onRouteChange ={this.onRouteChange} /> 
+       :<div>
       <Logo />
-      <Signin />
+      
       <Rank />
-        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+        <ImageLinkForm 
+        onInputChange={this.onInputChange} 
+        onButtonSubmit={this.onButtonSubmit}/>
       <FaceRecognition box={this.state.box} imageUrl ={this.state.imageUrl}/>
       {/* <InfoBox colors= {this.state.colors} /> */}
-      
+
       </div>
+      }
+      </div>
+      
     );
   }
 }
