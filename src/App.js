@@ -5,6 +5,7 @@ import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 // import InfoBox from './components/InfoBox/InfoBox';
 import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
@@ -107,19 +108,38 @@ class App extends Component {
         <Particles className="particles"
           params={particlesoptions}/>
       <Navigation onRouteChange={this.onRouteChange}/>
-      {this.state.route ==="signin"
-       ? <Signin onRouteChange ={this.onRouteChange} /> 
-       :<div>
-      <Logo />
-      
-      <Rank />
-        <ImageLinkForm 
-        onInputChange={this.onInputChange} 
-        onButtonSubmit={this.onButtonSubmit}/>
-      <FaceRecognition box={this.state.box} imageUrl ={this.state.imageUrl}/>
-      {/* <InfoBox colors= {this.state.colors} /> */}
+      {this.state.route ==="home"
+       ? <div>
+         <Logo />
+          <Rank />
+         <ImageLinkForm
+       onInputChange = {
+         this.onInputChange
+       }
+       onButtonSubmit = {
+         this.onButtonSubmit
+       }
+       /> 
+       <FaceRecognition box = {
+         this.state.box
+       }
+       imageUrl = {
+         this.state.imageUrl
+       }
+       /> { /* <InfoBox colors= {this.state.colors} /> */ }
 
-      </div>
+       </div>
+       : (
+         this.state.route==='signin' ?
+         <Signin onRouteChange = {
+           this.onRouteChange
+         }
+         />
+         :<Register onRouteChange = {
+           this.onRouteChange
+         } />
+       )
+       
       }
       </div>
       
