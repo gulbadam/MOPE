@@ -51,7 +51,8 @@ class App extends Component {
     imageUrl: '',
     box: {},
     colors: [],
-    route: 'signin'
+    route: 'signin',
+    isSignedIn: false
   }
   calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -100,15 +101,21 @@ class App extends Component {
       // },
       
   onRouteChange =(route)=> {
+    if(route==='signout') {
+      this.setState({isSignedIn: false})
+    } else if (route ==='home') {
+      this.setState({isSignedIn: true})
+    }
     this.setState({route: route})
   }
   render() {
+    const {isSignedIn, imageUrl, route, box } = this.state;
     return (
       <div className="App">
         <Particles className="particles"
           params={particlesoptions}/>
-      <Navigation onRouteChange={this.onRouteChange}/>
-      {this.state.route ==="home"
+      <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
+      {route ==="home"
        ? <div>
          <Logo />
           <Rank />
@@ -121,16 +128,16 @@ class App extends Component {
        }
        /> 
        <FaceRecognition box = {
-         this.state.box
+         box
        }
        imageUrl = {
-         this.state.imageUrl
+        imageUrl
        }
        /> { /* <InfoBox colors= {this.state.colors} /> */ }
 
        </div>
        : (
-         this.state.route==='signin' ?
+         route==='signin' ?
          <Signin onRouteChange = {
            this.onRouteChange
          }
