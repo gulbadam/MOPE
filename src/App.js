@@ -30,7 +30,7 @@ const particlesoptions = {
         value: 200,
         density: {
           enable: true,
-          value_area: 600
+          value_area: 800
         }
       },
       move: {
@@ -49,7 +49,7 @@ class App extends Component {
   state ={
     input: '',
     imageUrl: '',
-    box: {},
+    boxes: [],
     colors: [],
     route: 'signin',
     isSignedIn: false
@@ -59,20 +59,19 @@ class App extends Component {
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
-    console.log(width, height);
-    return  {
+    return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
       rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height -(clarifaiFace.bottom_row * height)
+      bottomRow: height - (clarifaiFace.bottom_row * height)
     }
-
   }
-  displayFaceBox =(box) =>{
-    console.log(box);
-    this.setState ({box: box})
 
+  displayFaceBox = (box) => {
+    this.setState({box: box});
   }
+
+
   onInputChange =(event)=>{
     this.setState({input: event.target.value});
     console.log(event.target.value);
@@ -109,7 +108,7 @@ class App extends Component {
     this.setState({route: route})
   }
   render() {
-    const {isSignedIn, imageUrl, route, box } = this.state;
+    const { isSignedIn, imageUrl, route, box } = this.state;
     return (
       <div className="App">
         <Particles className="particles"
