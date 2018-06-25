@@ -17,30 +17,30 @@ const app = new Clarifai.App({
   apiKey: 'aa771fc1104f4d49827dac5a21154465'
 });
 
-const particlesoptions = {
-  particles: {
-    line_linked: {
-      shadow: {
-        enable: true,
-        color: "#3CA9D1",
-        blur: 1
-      }
-    },
-      number: {
-        value: 200,
-        density: {
-          enable: true,
-          value_area: 800
-        }
-      },
-      move: {
-        enable: true,
-        speed:60
+// const particlesoptions = {
+//   particles: {
+//     line_linked: {
+//       shadow: {
+//         enable: true,
+//         color: "#3CA9D1",
+//         blur: 1
+//       }
+//     },
+//       number: {
+//         value: 200,
+//         density: {
+//           enable: true,
+//           value_area: 800
+//         }
+//       },
+//       move: {
+//         enable: true,
+//         speed:60
 
-      },
+//       },
     
-      }
-    }
+//       }
+//     }
   
 
 
@@ -49,11 +49,18 @@ class App extends Component {
   state ={
     input: '',
     imageUrl: '',
-    boxes: [],
+    box: {},
     colors: [],
     route: 'signin',
     isSignedIn: false
   }
+  
+  componentDidMount() {
+    fetch('http://localhost:3001')
+    .then(response =>response.json())
+    .then(console.log)
+  }
+  
   calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputimage');
@@ -69,6 +76,7 @@ class App extends Component {
 
   displayFaceBox = (box) => {
     this.setState({box: box});
+    console.log(box);
   }
 
 
@@ -111,12 +119,11 @@ class App extends Component {
     const { isSignedIn, imageUrl, route, box } = this.state;
     return (
       <div className="App">
-        <Particles className="particles"
-          params={particlesoptions}/>
+      
       <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
       {route ==="home"
        ? <div>
-         <Logo />
+         {/* <Logo /> */}
           <Rank />
          <ImageLinkForm
        onInputChange = {
@@ -126,9 +133,7 @@ class App extends Component {
          this.onButtonSubmit
        }
        /> 
-       <FaceRecognition box = {
-         box
-       }
+       <FaceRecognition box = {box}
        imageUrl = {
         imageUrl
        }
