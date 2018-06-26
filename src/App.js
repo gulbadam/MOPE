@@ -13,9 +13,7 @@ import "tachyons";
 import Particles from 'react-particles-js';
 import Clarifai from "clarifai";
 
-const app = new Clarifai.App({
-  apiKey: 'aa771fc1104f4d49827dac5a21154465'
-});
+
 
 // const particlesoptions = {
 //   particles: {
@@ -43,11 +41,8 @@ const app = new Clarifai.App({
 //     }
   
 
-
-
-class App extends Component {
-  state ={
-    input: '',
+const initialState = {
+  input: '',
     imageUrl: '',
     box: {},
     colors: [],
@@ -55,12 +50,52 @@ class App extends Component {
     isSignedIn: false,
     user: {
       id: '',
-        name: '',
-        email: '',
-        entries: 0,
-        joined: ''
+      name: '',
+      email: '',
+      entries: 0,
+      joined: ''
     }
   }
+
+
+class App extends Component {
+  constructor() {
+      super();
+  this.state = initialState; 
+}
+  componentDidMount() {
+    const token = window.sessionStorage.getItem('token');
+    if (token) {
+      fetch('http://localhost:3000/signin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.id) {
+            fetch(`http://localhost:3000/profile/${data.id}`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': token
+                }
+              })
+              .then(response => response.json())
+              .then(user => {
+                if (user && user.email) {
+                  this.loadUser(user)
+                  this.onRouteChange('home');
+                }
+              })
+          }
+        })
+        .catch(console.log)
+    }
+  }
+    
 
   loadUser = (data) =>{
     this.setState({user: {
@@ -70,12 +105,6 @@ class App extends Component {
         entries: data.entries,
         joined: data.joined
     }})
-
-  }
-  componentDidMount() {
-    fetch('http://localhost:3001')
-    .then(response =>response.json())
-    .then(console.log)
   }
   
   calculateFaceLocation = (data) => {
@@ -104,25 +133,44 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-    .then(response => {
-      if(response) {
-        fetch('http://localhost:3001/image', {
-        method: "PUT",
-        headers: {'Content-Type': 'aplication/json'},
+    fetch('http://localhost:3001/imageurl', {
+      method: 'post',
+      headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': window.sessionStorage.getItem('token')
+      },
       body: JSON.stringify({
-        id: this.state.user.id
+      input: this.state.input
       })
-      })
-      .then(response => response.json())
-      .then(count => {
-        this.setState(Object.assign(this.state.user, {entries: count} ))
-        })
-      }
-      this.displayFaceBox(this.calculateFaceLocation(response))
     })
-    .catch(err => console.log(err));
-    }
+    .then(response => response.json())
+          .then(response => {
+            if (response) {
+              fetch('http://localhost:3001/image', {
+                  method: 'put',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': window.sessionStorage.getItem('token')
+                  },
+                  body: JSON.stringify({
+                    id: this.state.user.id
+                  })
+                })
+                .then(response => response.json())
+                .then(count => {
+                  this.setState(Object.assign(this.state.user, {
+                    entries: count
+                  }))
+                })
+                .catch(console.log)
+
+            }
+            this.displayFaceBox(this.calculateFaceLocation(response))
+          })
+          .catch(err => console.log(err));
+        }
 
         // this.setState({ colors: response.outputs[0].data.colors });
         // console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
@@ -141,7 +189,7 @@ class App extends Component {
       
   onRouteChange =(route)=> {
     if(route==='signout') {
-      this.setState({isSignedIn: false})
+      this.setState(initialState)
     } else if (route ==='home') {
       this.setState({isSignedIn: true})
     }
