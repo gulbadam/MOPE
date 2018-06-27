@@ -26,14 +26,19 @@ class FaceRecognition extends React.Component {
     render() {
         const {box,imageUrl}= this.props;
         return(
-            < div className = "center ma" >
+            <div>
+            <div className = "center ma" >
             <div className = "absolute mt3" >
              <img id='inputimage' alt='' src={imageUrl} width='500px' heigh='auto'/>
             <div className='bounding-box' style={{ top: box.topRow, right: box.rightCol, bottom: box.bottomRow, left: box.leftCol }}></div>
 
                   </div>
-               < div className = 'absolute container mt3'
-                  style = {{width: '500px'}} > < ControlledTabs /> </div >
+                  
+               
+              </div>
+              <div>
+              {imageUrl ? < div className = 'absolute container mt3'style = {{width: '500px'}}> <ControlledTabs /> </div> :<div></div >}
+              </div>
               </div>
         )
     }
