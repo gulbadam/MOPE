@@ -1,9 +1,19 @@
 import React from 'react';
 const Context =({colors})=>{
+ 
+//const mappingFunction = p => <li key={p.raw_hex}>{p.raw_hex}</li>;
+
+ 
 return (
+    
     <div>
-<p>RAW_Hex</p>
-<p>{colors[0].raw_hex}</p>
+    {console.log({colors})}
+    <ul>
+    {colors.map(p => <li  key={p.raw_hex}> <div>{p.raw_hex}</div>  <div>{p.value}</div> % </li>)}
+    </ul>
+
+
+
     </div>
 )
 }
