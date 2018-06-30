@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import Navigation from "./components/Navigation/Navigation";
 import Rank from './components/Rank/Rank';
-// import InfoBox from './components/InfoBox/InfoBox';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
-
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import "tachyons";
 import Particles from 'react-particles-js';
-import ControlledTabs from './components/ControlledTabs/ControlledTabs';
-import {Tabs,Tab,TabContainer,TabContent,TabPane} from 'react-bootstrap';
-
-
 
 const particlesOptions = {
   particles: {
@@ -32,13 +26,16 @@ const initialState = {
     boxes: [],
     route: 'signin',
     heigh: 0,
+    isProfileOpen: false,
     isSignedIn: false,
     user: {
       id: '',
       name: '',
       email: '',
       entries: 0,
-      joined: ''
+      joined: '',
+      old: 0,
+      pet: ""
     }
   }
 
@@ -49,19 +46,22 @@ class App extends Component {
   this.state = initialState; 
 }
   componentDidMount() {
-    
+    const token = window.sessionStorage.getItem('token');
+    if(token) {
       fetch('http://localhost:3000/signin', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'}
+            'Content-Type': 'application/json'},
+            'Authorization': token
         })
         .then(response => response.json())
         .then(data => {
           if (data && data.id) {
-            fetch(`http://localhost:3000/profile/${data.id}`, {
+            fetch(`http://localhost:3001/profile/${data.id}`, {
                 method: 'GET',
                 headers: {
-                  'Content-Type': 'application/json', 
+                  'Content-Type': 'application/json',
+                  'Authorization': token
                 }
               })
               .then(response => response.json())
@@ -73,12 +73,10 @@ class App extends Component {
               })
           }
         })
-        .catch(console.log)
-    
+        .catch(err => console.log(err))
+      }
   }
-    
-
-  loadUser = (data) =>{
+  loadUser = (data) => {
     this.setState({user: {
       id: data.id,
         name: data.name,
@@ -103,19 +101,14 @@ class App extends Component {
         rightCol: width - (clarifaiFace.right_col * width),
         bottomRow: height - (clarifaiFace.bottom_row * height)
     }
-    //console.log(data.outputs[0].data.regions[0])
     });
   }
-
   displayFaceBox = (boxes) => {
     this.setState({boxes: boxes});
     console.log(boxes);
   }
   onInputChange =(event)=>{
-   
-    this.setState({
-      input: event.target.value
-    }, () => {
+   this.setState({input: event.target.value}, () => {
       console.log(this.state.input)
     });
     console.log(event.target.value);
@@ -123,15 +116,15 @@ class App extends Component {
 
   onButtonSubmit = (event) => {
     event.preventDefault();
-    this.setState({
-      imageUrl: this.state.input
-    }, () => {
+    this.setState({imageUrl: this.state.input}, () => {
       console.log(this.state.imageUrl)
+      this.setState({boxes: []})
     });
     fetch('http://localhost:3001/imageurl', {
       method: 'post',
       headers: {
           'Accept': 'application/json',
+          'Authorization': window.sessionStorage.getItem('token'),
           'Content-Type': 'application/json'},
       body: JSON.stringify({input: this.state.input})
     })
@@ -143,6 +136,7 @@ class App extends Component {
                   method: 'put',
                   headers: {
       'Accept': 'application/json',
+      'Authorization': window.sessionStorage.getItem('token'),
       'Content-Type': 'application/json'
                   },
                   body: JSON.stringify({
@@ -154,7 +148,7 @@ class App extends Component {
                     entries: count
                   }))
                 })
-                .catch(console.log)
+                .catch(err => console.log(err))
               }
             this.displayFaceBox(this.calculateFaceLocation(response))
           })

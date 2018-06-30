@@ -1,5 +1,7 @@
 import React from 'react';
 import Colors from "../Colors/Colors";
+import General from "../General/General";
+import Demographics from "../Demographics/Demographics";
 import {
     Tabs,
    Tab,
@@ -12,7 +14,7 @@ class ControlledTabs extends React.Component {
         super(props, context);
         this.handleSelect = this.handleSelect.bind(this);
         this.state = {
-            key: 2,
+            key: 1,
             colors: [],
             age: [],
             gender: [],
@@ -121,7 +123,7 @@ handleGeneral=(general)=>{
         //console.log(key)
         switch (key) {
         case 1:
-            console.log(`FOCUS ${key}`);
+            console.log(`GENERAL ${key}`);
             fetch('http://localhost:3001/general', {
                     method: 'POST',
                     headers: {
@@ -195,7 +197,7 @@ render() {
     console.log("--------")
     console.log(this.state.colors[0])
     console.log(typeof(this.state.colors))
-    const {colors} = this.state;
+    const {colors, general, gender, age, culture} = this.state;
 
     return (
         <div className="center ma">
@@ -203,10 +205,14 @@ render() {
                 activeKey={this.state.key}
                 onSelect={this.handleSelect}
                 colors={colors}
+                general={general}
                 id="controlled-tab-example">
-                <Tab eventKey={1} colors={colors} title="General">
+                <Tab eventKey={1} general={general} title="General">
                     <div>
                         <h3>General</h3>
+                        {(general.length >1 ?
+                        <General general ={general}/>:
+                    <div></div>)}
                         
 
                     </div >
@@ -218,8 +224,12 @@ render() {
                     <div> </div>
                 }
                 </Tab>
-                <Tab eventKey={3} title="Demographics">
+                <Tab eventKey={3} culture={culture} age={age} gender={gender} title="Demographics">
                     <h3> Demographics </h3>
+                    {(culture.length>1)?
+                    <Demographics culture={culture} age={age} gender={gender}/>:
+                    <div> </div>
+                }
                 </Tab>
             </Tabs>
 
