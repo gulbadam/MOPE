@@ -26,40 +26,12 @@ const particlesOptions = {
     }
   }
 }
-
-// const particlesoptions = {
-//   particles: {
-//     line_linked: {
-//       shadow: {
-//         enable: true,
-//         color: "#3CA9D1",
-//         blur: 1
-//       }
-//     },
-//       number: {
-//         value: 200,
-//         density: {
-//           enable: true,
-//           value_area: 800
-//         }
-//       },
-//       move: {
-//         enable: true,
-//         speed:60
-
-//       },
-    
-//       }
-//     }
-  
-
 const initialState = {
   input: '',
     imageUrl: '',
     box: {},
-    //colors: [],
     route: 'signin',
-    key:'',
+    heigh: 0,
     isSignedIn: false,
     user: {
       id: '',
@@ -123,7 +95,8 @@ class App extends Component {
     const width = Number(image.width);
     console.log(width)
     const height = Number(image.height);
-     console.log(height)
+    this.setState({heigh: height})
+    console.log(height)
      
     return {
       leftCol: clarifaiFace.left_col * width,
@@ -137,8 +110,6 @@ class App extends Component {
     this.setState({box: box});
     console.log(box);
   }
-
-
   onInputChange =(event)=>{
    
     this.setState({
@@ -162,7 +133,6 @@ class App extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'},
       body: JSON.stringify({input: this.state.input})
-    
     })
     .then(res => res.json())
           .then(response => {
@@ -184,32 +154,12 @@ class App extends Component {
                   }))
                 })
                 .catch(console.log)
-
-            }
+              }
             this.displayFaceBox(this.calculateFaceLocation(response))
           })
           .catch(err => console.log(err));
         }
-
-        // this.setState({ colors: response.outputs[0].data.colors });
-        // console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
-    // app.models.predict(Clarifai.COLOR_MODEL, this.state.input).then(
-    //   function (response) {
-        
-    //     this.setState({ colors: response.outputs[0].data.colors});
-    //     console.log (response.outputs[0].data.colors[0].raw_hex);
-
-       
-
-        
-        // do something with response
-        
-      // },
-  
-
-  
-      
-  onRouteChange =(route)=> {
+   onRouteChange =(route)=> {
     if(route==='signout') {
       this.setState(initialState)
     } else if (route ==='home') {
@@ -218,7 +168,7 @@ class App extends Component {
     this.setState({route: route})
   }
   render() {
-    const { isSignedIn, imageUrl, route, box, input, colors  } = this.state;
+    const { isSignedIn, imageUrl, route, box, input, heigh  } = this.state;
     return (
       <div className="App">
       <Particles className = 'particles'
@@ -227,15 +177,13 @@ class App extends Component {
       {route ==="home" 
       ? <div> <Rank name = {this.state.user.name} entries = {this.state.user.entries}/>
       <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}  /> 
-     <FaceRecognition box = {box} imageUrl = {imageUrl} input ={input} />
-       
-      
+     <FaceRecognition box = {box} imageUrl = {imageUrl} input ={input} heigh={heigh} onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}/>
       </div>
       : (route==='signin' ?
-         <Signin loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
+      <Signin loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
       :<Register loadUser={this.loadUser} onRouteChange = {this.onRouteChange} />
-       )
-       }
+      )
+      }
   </div>
       
     );

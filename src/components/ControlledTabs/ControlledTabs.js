@@ -1,5 +1,5 @@
 import React from 'react';
-import Context from "../Context/Context";
+import Colors from "../Colors/Colors";
 import {
     Tabs,
    Tab,
@@ -14,10 +14,12 @@ class ControlledTabs extends React.Component {
         this.state = {
             key: 2,
             colors: [],
-            age: "",
-            gender: "",
+            age: [],
+            gender: [],
             culture: [],
-            message: ''
+            message: '',
+            general:[]
+
         };
     }
     componentDidMount() {
@@ -26,9 +28,13 @@ class ControlledTabs extends React.Component {
     handleResultsColors = (data) => {
         return data.outputs[0].data.colors.map(color => {
             const raw_hex = color.raw_hex;
+            const name = color.w3c.name;
+            const hex =color.w3c.hex;
             const value =  Math.floor(color.value *100);
         return {
         raw_hex: raw_hex,
+        name: name,
+        hex: hex,
         value: value
         };
 })
@@ -56,28 +62,102 @@ handleCulture=(culture)=>{
     console.log ("~~~~~~~~~~");
     console.log(culture);
 }
+handleResultGender =(data)=>{
+    return data.outputs[0].data.regions[0].data.face.gender_appearance.concepts.map(gender =>{
+        const id = gender.id;
+        const name = gender.name;
+        const value =Math.floor(gender.value *100);
+        return {
+            id : id,
+            name: name,
+            value: value
+            
+        };
+    })
+}
+handleGender = (gender) =>{
+    this.setState({gender: gender});
+    console.log("GENDER");
+    console.log(gender);
+}
+handeleResultsAge=(data)=>{
+    return data.outputs[0].data.regions[0].data.face.age_appearance.concepts.map(age => {
+        const id = age.id;
+        const name = age.name;
+        const value = Math.floor(age.value*100);
+        return {
+            id: id,
+            name: name,
+            value: value
+        }
+    })
+}
+handleAge =(age)=>{
+    this.setState({age: age});
+    console.log("age");
+    console.log(age);
+}
+handleResultsGeneral=(data)=>{
+return data.outputs[0].data.concepts.map(general => {
+const id = general.id;
+const name = general.name;
+const value = Math.floor(general.value *100);
+return {
+    id: id,
+    name: name,
+    value: value
+}
+})
+}
+handleGeneral=(general)=>{
+    this.setState({general: general});
+    console.log("GENERAL");
+    console.log(general)
+
+}
         handleSelect(key) {
         //alert(`selected ${key}`);
         this.setState({key});
         //console.log(key)
         switch (key) {
-            case 1:
-        console.log(`COLOR ${key}`);
-        fetch('http://localhost:3001/colors', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',},
-        body: JSON.stringify({
-        input: this.props.input})
+        case 1:
+            console.log(`FOCUS ${key}`);
+            fetch('http://localhost:3001/general', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        input: this.props.input
+                    })
+                })
+                .then(response => response.json())
+                .then(response => {
+                this.handleGeneral(this.handleResultsGeneral(response))
+                    console.log(response)
+                })
+                .catch(err => console.log(err));
+        
+        break;
+        case 2:
+    
+    console.log(`COLOR ${key}`);
+    fetch('http://localhost:3001/colors', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                input: this.props.input
+            })
         })
         .then(response => response.json())
         .then(response => {
-                    this.handleColors(this.handleResultsColors(response))
+            this.handleColors(this.handleResultsColors(response))
+            console.log("arrrCOLORS");
+            console.log(response)
         })
-        .catch(err=>console.log(err));
-        break;
-        case 2:
-    console.log(`FOCUS ${key}`);
+        .catch(err => console.log(err));
         break;
             case 3:
     console.log(`DEMOGRAFICS ${key}`);
@@ -94,9 +174,9 @@ handleCulture=(culture)=>{
         .then(response => {
             console.log(response)
             if (response.outputs[0].data.regions) {
-            this.handleCulture(this.handleResultsMulticultural(response))
-
-            
+            this.handleCulture(this.handleResultsMulticultural(response));
+            this.handleGender(this.handleResultGender(response));
+            this.handleAge(this.handeleResultsAge(response));
             console.log(response.outputs[0].data.regions[0].data.face.multicultural_appearance.concepts);
             } else  {
                 const msg = "No faces detected";
@@ -124,33 +204,22 @@ render() {
                 onSelect={this.handleSelect}
                 colors={colors}
                 id="controlled-tab-example">
-                <Tab eventKey={1} colors={colors} title="Colors">
+                <Tab eventKey={1} colors={colors} title="General">
                     <div>
-                        <h3>
-                            Colors
-                        </h3>
-                        <ul>
-                            {
-                                (colors.length > 1)
-                                    ? <Context colors = {
-                                        colors
-                                    } />
-                                    : <div></div>
-                            }
-
-                            <li></li>
-
-                        </ul>
+                        <h3>General</h3>
+                        
 
                     </div >
                 </Tab>
-                <Tab eventKey={2
-} title="Tab 2">
-                    Tab 2 content
+                <Tab eventKey={2} title="Colors">
+                    <h3> Colors </h3>
+                   {(colors.length > 1) ?
+                    <Colors colors = {colors}/> :
+                    <div> </div>
+                }
                 </Tab>
-                <Tab eventKey={3
-} title="Tab 3">
-                    Demographics
+                <Tab eventKey={3} title="Demographics">
+                    <h3> Demographics </h3>
                 </Tab>
             </Tabs>
 

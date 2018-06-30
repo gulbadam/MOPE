@@ -20,12 +20,12 @@ class FaceRecognition extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            key: '',
-            colors: []
+            heigh: 0
+
         }
     }
     render() {
-        const {box, imageUrl, input, colors }= this.props;
+        const {box, imageUrl, input, heigh}= this.props;
         return(
             <div>
                 <div className = "center ma" >
@@ -35,7 +35,7 @@ class FaceRecognition extends React.Component {
                 </div>
             </div>
             <div>
-            {imageUrl ? < div className = 'absolute container mt3'style = {{width: '500px'}}> <ControlledTabs input={input}/> </div> :<div></div >}
+            {imageUrl ? <div className = 'relative  container mt3'style = {{width: '500px', top: `${heigh}px`}}> <ControlledTabs input={input}/> </div> :<div></div >}
             </div>
             </div>
         )
