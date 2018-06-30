@@ -21,9 +21,10 @@ return (
             <Panel.Body>
             <Grid>
                 <Row>
+                <Col xs={1}><p>{p.name}</p></Col>
                 <Col xs={1}><p> {p.raw_hex}</p> </Col> 
                 <Col xs={1}><p>{p.value}%</p></Col>  
-                <Col xs={1}><p>{p.name}</p></Col>
+                
                 </Row>
                 </Grid> 
                 </Panel.Body>
