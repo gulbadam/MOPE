@@ -24,7 +24,7 @@ const initialState = {
   input: '',
     imageUrl: '',
     boxes: [],
-    route: 'signin',
+    route: 'home',
     heigh: 0,
     isProfileOpen: false,
     isSignedIn: false,
@@ -118,6 +118,7 @@ class App extends Component {
     event.preventDefault();
     this.setState({imageUrl: this.state.input}, () => {
       console.log(this.state.imageUrl)
+      this.setState({key: 1})
       this.setState({boxes: []})
     });
     fetch('http://localhost:3001/imageurl', {
@@ -157,8 +158,10 @@ class App extends Component {
    onRouteChange =(route)=> {
     if(route==='signout') {
       this.setState(initialState)
-    } else if (route ==='home') {
-      this.setState({isSignedIn: true})
+    } else if (route === 'home') {
+      this.setState({
+        isSignedIn: true
+      })
     }
     this.setState({route: route})
   }
@@ -169,11 +172,13 @@ class App extends Component {
       <Particles className = 'particles'
       params = {particlesOptions}/>
       <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
-      {route ==="home" 
+      {route === "home" && isSignedIn
       ? <div> <Rank name = {this.state.user.name} entries = {this.state.user.entries}/>
       <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}  /> 
      <FaceRecognition boxes = {boxes} imageUrl = {imageUrl} input ={input} heigh={heigh} onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}/>
       </div>
+      : route === "home" && !isSignedIn ? <div><ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}  /> 
+     <FaceRecognition boxes = {boxes} imageUrl = {imageUrl} input ={input} heigh={heigh} onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}/></div>
       : (route==='signin' ?
       <Signin loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
       :<Register loadUser={this.loadUser} onRouteChange = {this.onRouteChange} />

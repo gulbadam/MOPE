@@ -46,6 +46,7 @@ class ControlledTabs extends React.Component {
         console.log("--------")
         console.log(colors);
         console.log(typeof(colors))
+        
 }
 handleResultsMulticultural =(data) => {
     return data.outputs[0].data.regions[0].data.face.multicultural_appearance.concepts.map(culture => {
@@ -63,6 +64,7 @@ handleCulture=(culture)=>{
     this.setState({culture: culture});
     console.log ("~~~~~~~~~~");
     console.log(culture);
+    
 }
 handleResultGender =(data)=>{
     return data.outputs[0].data.regions[0].data.face.gender_appearance.concepts.map(gender =>{
@@ -115,6 +117,7 @@ handleGeneral=(general)=>{
     this.setState({general: general});
     console.log("GENERAL");
     console.log(general)
+    this.setState ({key: 1})
 
 }
         handleSelect(key) {
@@ -224,10 +227,11 @@ render() {
                     <div> </div>
                 }
                 </Tab>
-                <Tab eventKey={3} culture={culture} age={age} gender={gender} title="Demographics">
+               
+                <Tab eventKey={3} culture={culture}  gender={gender} title="Demographics">
                     <h3> Demographics </h3>
                     {(culture.length>1)?
-                    <Demographics culture={culture} age={age} gender={gender}/>:
+                    <Demographics culture={culture}  gender={gender}/>:
                     <div> </div>
                 }
                 </Tab>

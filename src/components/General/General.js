@@ -1,4 +1,6 @@
 import React from 'react';
+import './General.css';
+
 import {
     Grid,
     Row,
@@ -9,11 +11,11 @@ const General =({general})=>{
 return(
     <div style = {{width: '500px'}}>
     {general.map(p => <Panel key = {p.id}>
-        <Panel.Body>
+        <Panel.Body className = 'pv0 panbg'>
             <Grid>
             <Row>
-            <Col xs = {2}> <p> {p.name} </p></Col>
-            <Col xs = {1}> <p> {p.value}%</p> </Col>
+            <Col xs = {4} className='tl'> <p> {p.name} </p></Col>
+            <Col xs = {1} className='tr'> <p> {p.value}%</p> </Col>
            </Row> 
             </Grid>  
             </Panel.Body>

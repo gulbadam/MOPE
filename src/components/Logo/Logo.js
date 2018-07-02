@@ -15,7 +15,9 @@ const Logo = () => {
         <img style = {{paddingTop: '5px'}}
         alt = 'logo'
         src = {brain}
-        /> </div> </Tilt> </div>
+        /> </div> </Tilt> 
+        
+        </div>
     );
 }
 

@@ -18,12 +18,12 @@ return (
     {
         colors.map(p => <Panel key = {p.raw_hex} style={{backgroundColor: `${p.raw_hex}`}}>
            
-            <Panel.Body>
+            <Panel.Body className = 'pv0'>
             <Grid>
                 <Row>
-                <Col xs={1}><p>{p.name}</p></Col>
-                <Col xs={1}><p> {p.raw_hex}</p> </Col> 
-                <Col xs={1}><p>{p.value}%</p></Col>  
+                <Col xs={2} className='tl'><p>{p.name}</p></Col>
+                <Col xs={2}><p> {p.raw_hex}</p> </Col> 
+                <Col xs={1} className='tr'><p>{p.value}%</p></Col>  
                 
                 </Row>
                 </Grid> 

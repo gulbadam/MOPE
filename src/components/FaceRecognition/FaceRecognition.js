@@ -1,6 +1,7 @@
 import React from 'react';
 import './FaceRecognition.css';
-import ControlledTabs from "../ControlledTabs/ControlledTabs"
+import ControlledTabs from "../ControlledTabs/ControlledTabs";
+import Dna from "../Dna/Dna";
 // const FaceRecognition   = ({box, imageUrl}) =>{ 
 //     return (
 // <div className="center ma">
@@ -20,12 +21,13 @@ class FaceRecognition extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            heigh: 0
+            heigh: 0,
+            key: 1
 
         }
     }
     render() {
-        const {boxes, imageUrl, input, heigh}= this.props;
+        const {boxes, imageUrl, input, heigh, key}= this.props;
         console.log('++++++++++++++')
     console.log(boxes)
         return(
@@ -33,6 +35,7 @@ class FaceRecognition extends React.Component {
                 <div className = "center ma" >
                     <div className = "absolute mt3" >
                         <img id='inputimage' alt='' src={imageUrl} width='500px' heigh='auto'/>
+                        
                         {boxes.map(box =>
                           <div key={`box${box.topRow}${box.rightCol}`}
                             className='bounding-box'
@@ -42,8 +45,9 @@ class FaceRecognition extends React.Component {
                 </div>
             </div>
             <div>
-            {imageUrl ? <div className = 'relative  container mt3'style = {{width: '500px', top: `${heigh}px`}}> <ControlledTabs input={input}/> </div> :<div></div >}
+            {imageUrl ? <div className = 'relative  container mt3'style = {{width: '500px', top: `${heigh}px`}}> <ControlledTabs input={input}  key={key}/> </div> :<div></div>}
             </div>
+            
             </div>
         )
     }
