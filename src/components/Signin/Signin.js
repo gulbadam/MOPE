@@ -5,7 +5,9 @@ class Signin extends React.Component {
         super(props);
         this.state = {
             signInEmail: '',
-            signInPassword: ''
+            signInPassword: '',
+            msg: ''
+            
         }
     }
     
@@ -41,26 +43,30 @@ class Signin extends React.Component {
                 //     //this.saveAuthTokenInSessions(data.token)
                 //     this.props.loadUser(data.user)
                 //     this.props.onRouteChange('home');
-                }
-            })
+                } else {
+                    this.setState({msg: "email or password is invalid"})
+                } })
+            
     .catch(console.log)
             }
         
     render(){
-        const {onRouteChange} =this.props;
+        const {onRouteChange, msg} =this.props;
 return(
         <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
         <main className="pa4 black-80">
             <div className="measure">
                 <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-                    <legend className="f1 fw6 ph0 mh0">Sign In</legend>
+                    <legend className = "f1 fw6 ph0 mh0" > Sign In </legend>
+                    <p className="db fw6 lh-copy f5">{this.state.msg}</p>
+                
                     <div className="mt3">
                         <label className="db fw6 lh-copy f5" htmlFor="email-address">Email</label>
-                        <input   onChange={this.onEmailChange} className="pa2 input-reset ba bg-transparent hover-bg-blue hover-white w-100" type="email" name="email-address" id="email-address"/>
+                        <input   onChange={this.onEmailChange} className="pa2 input-reset ba bg-transparent hover-bg-blue hover-white w-100" type="email" name="email-address" id="email-address" required="required"/>
       </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f5" htmlFor="password">Password</label>
-                            <input   onChange={this.onPasswordChange} className="b pa2 input-reset ba bg-transparent hover-bg-blue hover-white w-100" type="password" name="password" id="password"/>
+                            <input   onChange={this.onPasswordChange} className="b pa2 input-reset ba bg-transparent hover-bg-blue hover-white w-100" type="password" name="password" id="password" required="required"/>
       </div>
                             {/* <label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox"/> Remember me</label> */}
     </fieldset>

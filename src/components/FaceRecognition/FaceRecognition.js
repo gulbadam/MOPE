@@ -43,7 +43,7 @@ class FaceRecognition extends React.Component {
             <div>
                 <div className = "center ma" >
                     <div className = "absolute mt3" >
-                        <img id='inputimage' alt='' src={imageUrl} width='500px' heigh='auto'/>
+                        <img id='inputimage' alt='' src={imageUrl} width='500px' heigh='auto' style={{ minWidth: 500 }}/>
                         
                         {boxes.map(box =>
                           <div key={`box${box.topRow}${box.rightCol}`}

@@ -4,12 +4,15 @@ import Tilt from 'react-tilt';
 import brain from './logo-Gulbadam.png';
 import { Nav, NavItem } from 'react-bootstrap'
 const Navigation = ({
-    onRouteChange,isSignedIn, toggleModal}) => {
+    onRouteChange, isSignedIn, toggleModal,}) => {
   
     if (isSignedIn) {
       return (
-    <div className = "mb5 pb5 mt3" >
-    <div className='ml6 mt3'>
+    <div  className = "mb5 pb5 mt3" >
+    <div  onClick = {
+      () => onRouteChange('home')
+    }
+    className = 'ml6 mt3 ponter' >
     <Tilt className = "Tilt br2 shadow-2 fl w-60 pa"
         options = {{max: 65}}
         style = {{height: 90,
@@ -35,7 +38,10 @@ const Navigation = ({
     } else {
       return(
         <div className = "mb5 pb5" >
-    <div className='ml6 mt0 pointer'>
+    <div div onClick = {
+      () => onRouteChange('home')
+    }
+    className = 'ml6 mt0 pointer' >
     <Tilt className = "Tilt br2 shadow-2 fl w-60 pa"
         options = {{max: 65}}
         style = {{height: 90,

@@ -35,6 +35,7 @@ const initialState = {
     heigh: 0,
     isProfileOpen: false,
     isSignedIn: false,
+    inputIsValid: false,
     user: {
       id: '',
       name: '',
@@ -123,7 +124,11 @@ class App extends Component {
     console.log(event.target.value);
   }
  
-
+inputValidation =() =>{
+ this.setState({
+   inputIsvalid: (this.state.input.match(/\.(jpeg|jpg|gif|png)$/) != null)
+ })
+}
 onButtonSubmit = (event) => {
     event.preventDefault();
     this.setState({imageUrl: this.state.input}, () => {
@@ -178,7 +183,7 @@ onButtonSubmit = (event) => {
       this.setState({
         isSignedIn: true
       })
-    }
+    } 
     this.setState({route: route})
   }
   toggleModal = () => {
@@ -198,11 +203,12 @@ onButtonSubmit = (event) => {
       isProfileOpen,
       user
     } = this.state;
+    
     return (
       <div className="App">
       <Particles className = 'particles'
       params = {particlesOptions}/>
-      <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} toggleModal={this.toggleModal}/>
+      <Navigation   isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} toggleModal={this.toggleModal}/>
       {isProfileOpen &&
           <Modal>
             <Profile isProfileOpen={isProfileOpen} toggleModal={this.toggleModal} user={user} loadUser={this.loadUser} />

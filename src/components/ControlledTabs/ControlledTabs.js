@@ -22,6 +22,7 @@ class ControlledTabs extends React.Component {
         };
     }
     componentDidMount() {
+        
        this.handleSelect(this.state.key)
     }
     handleResultsColors = (data) => {
