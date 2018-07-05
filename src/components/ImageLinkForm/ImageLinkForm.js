@@ -5,7 +5,6 @@ import Dna from '../Dna/Dna'
 const ImageLinkForm=({onInputChange, onButtonSubmit})=>{
     return (
         <div>
-        <Dna />
         <p className='f3'>{'This Magic Brain will detect picture.'}</p>
         <div className="center">
         <div className='form mw8 center pa4  shadow-5'>

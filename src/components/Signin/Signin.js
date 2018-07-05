@@ -16,9 +16,13 @@ class Signin extends React.Component {
           this.setState({
               signInPassword: event.target.value})
     }
+    // saveAuthTokenInSessions = (token) => {
+    //     window.sessionStorage.setItem('token', token);
+    // }
     onSubmitSignIn = () => {
         //console.log(this.state);
-        fetch('http://localhost:3001/signin', {
+        fetch('https://alluring-redwood-89517.herokuapp.com/signin', {
+        //fetch('http://localhost:3001/signin', {
             method: 'post',
             headers: {'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -33,6 +37,10 @@ class Signin extends React.Component {
                 if (user.id) {
                     this.props.loadUser(user);
                     this.props.onRouteChange('home');
+                // if (data && data.success === "true") {
+                //     //this.saveAuthTokenInSessions(data.token)
+                //     this.props.loadUser(data.user)
+                //     this.props.onRouteChange('home');
                 }
             })
     .catch(console.log)

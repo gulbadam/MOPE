@@ -4,10 +4,7 @@ import General from "../General/General";
 import Demographics from "../Demographics/Demographics";
 import {
     Tabs,
-   Tab,
-    TabContainer,
-    TabContent,
-    TabPane
+   Tab
 } from 'react-bootstrap';
 class ControlledTabs extends React.Component {
     constructor(props, context) {
@@ -25,7 +22,7 @@ class ControlledTabs extends React.Component {
         };
     }
     componentDidMount() {
-        this.handleSelect(this.state.key);
+       this.handleSelect(this.state.key)
     }
     handleResultsColors = (data) => {
         return data.outputs[0].data.colors.map(color => {
@@ -118,16 +115,16 @@ handleGeneral=(general)=>{
     console.log("GENERAL");
     console.log(general)
     this.setState ({key: 1})
+    this.setState
 
 }
         handleSelect(key) {
-        //alert(`selected ${key}`);
         this.setState({key});
-        //console.log(key)
         switch (key) {
         case 1:
             console.log(`GENERAL ${key}`);
-            fetch('http://localhost:3001/general', {
+            fetch('https://alluring-redwood-89517.herokuapp.com/general', {
+            //fetch('http://localhost:3001/general', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -147,7 +144,8 @@ handleGeneral=(general)=>{
         case 2:
     
     console.log(`COLOR ${key}`);
-    fetch('http://localhost:3001/colors', {
+    fetch('https://alluring-redwood-89517.herokuapp.com/colors', {
+    //fetch('http://localhost:3001/colors', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -166,7 +164,8 @@ handleGeneral=(general)=>{
         break;
             case 3:
     console.log(`DEMOGRAFICS ${key}`);
-    fetch('http://localhost:3001/demographics', {
+    fetch('https://alluring-redwood-89517.herokuapp.com/demographics', {
+    //fetch('http://localhost:3001/demographics', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -203,16 +202,18 @@ render() {
     const {colors, general, gender, age, culture} = this.state;
 
     return (
-        <div className="center ma">
+        <div className="center ma mt3">
             <Tabs
+           defaultActiveKey = {1}
                 activeKey={this.state.key}
                 onSelect={this.handleSelect}
                 colors={colors}
                 general={general}
+                gender={gender}
+                culture={culture}
                 id="controlled-tab-example">
                 <Tab eventKey={1} general={general} title="General">
                     <div>
-                        <h3>General</h3>
                         {(general.length >1 ?
                         <General general ={general}/>:
                     <div></div>)}
@@ -221,7 +222,6 @@ render() {
                     </div >
                 </Tab>
                 <Tab eventKey={2} title="Colors">
-                    <h3> Colors </h3>
                    {(colors.length > 1) ?
                     <Colors colors = {colors}/> :
                     <div> </div>
@@ -229,10 +229,9 @@ render() {
                 </Tab>
                
                 <Tab eventKey={3} culture={culture}  gender={gender} title="Demographics">
-                    <h3> Demographics </h3>
                     {(culture.length>1)?
                     <Demographics culture={culture}  gender={gender}/>:
-                    <div> </div>
+                    <div><h5>No faces detected</h5> </div>
                 }
                 </Tab>
             </Tabs>

@@ -1,63 +1,63 @@
 import React from 'react';
-import Logo from '../Logo/Logo';
+import ProfileIcon from '../Profile/ProfileIcon';
 import Tilt from 'react-tilt';
-import brain from './brain-icon-512x512-300x300.png'
-import {
-  Nav,
-  NavItem
-} from 'react-bootstrap'
-const Navigation =({onRouteChange, isSignedIn})=>{
+import brain from './logo-Gulbadam.png';
+import { Nav, NavItem } from 'react-bootstrap'
+const Navigation = ({
+    onRouteChange,isSignedIn, toggleModal}) => {
   
     if (isSignedIn) {
       return (
-    <div>
-        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-      
-              <p onClick = {() => onRouteChange('signout')}
-                className = "f3 i link dim black underline pa3 hover-purple pointer" > Sign Out </p>
-          </div>
-     <div className='ml6 mt0'>
-    <Tilt className = "Tilt br2 shadow-2"
-        options = {{max: 55}}
-        style = {{height: 100,
-                width: 100,
+    <div className = "mb5 pb5 mt3" >
+    <div className='ml6 mt3'>
+    <Tilt className = "Tilt br2 shadow-2 fl w-60 pa"
+        options = {{max: 65}}
+        style = {{height: 90,
+                width: 90,
                 marginRight: 0,
             }}>
-        <div className = "Tilt-inner pa3">
-        <img style = {{paddingTop: '5px'}}
+        <div className = "Tilt-inner pa2">
+        <img style = {{paddingTop: '1px'}}
         alt = 'logo'
         src = {brain}
         /> </div> </Tilt> 
         </div>
+        <div style={{display: 'flex', justifyContent: 'flex-end'}} className = "mr5 mt3">
+     
+      <ProfileIcon onRouteChange={onRouteChange} toggleModal={toggleModal} />
+           {/*<p onClick = {() => onRouteChange('signout')}
+          //       className = "f3 i link dim black underline pa3 hover-purple pointer" > Sign Out </p> */}
+     </div>
+     
         </div> 
         
   );
     } else {
       return(
-        <div>
-       
-
-      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-  <p onClick={() => onRouteChange ('signin')}
-    className = "f3  i link dim black underline pa3 hover-purple pointer" > Sign In </p>
-    
-  
-  <p onClick={() => onRouteChange('resister')} className="f3  i link dim black underline pa3 hover-purple pointer">Register</p>
-  </div>
-             <div className = 'ml6 mt0' >
-
-<Tilt className = "Tilt br2 shadow-2"
-        options = {{max: 55}}
-        style = {{height: 100,
-                width: 100,
+        <div className = "mb5 pb5" >
+    <div className='ml6 mt0 pointer'>
+    <Tilt className = "Tilt br2 shadow-2 fl w-60 pa"
+        options = {{max: 65}}
+        style = {{height: 90,
+                width: 90,
                 marginRight: 0,
             }}>
-        <div className = "Tilt-inner pa3">
-        <img style = {{paddingTop: '5px'}}
+        <div className = "Tilt-inner pa1">
+        <img style = {{paddingTop: '1px'}}
         alt = 'logo'
         src = {brain}
         /> </div> </Tilt> 
         </div>
+       
+
+      <div style = {{display: 'flex', justifyContent: 'flex-end'}}
+      className = "mr4 mt3">
+  <p onClick={() => onRouteChange ('signin')}
+    className = "f3  i link dim black underline pa3 mt4  ml4 hover-purple pointer" > Sign In </p>
+    
+  
+  <p onClick={() => onRouteChange('resister')} className="f3  i link dim black underline pa3 mt4 ml4 hover-purple pointer">Register</p>
+  </div>
    </div>
       );
             

@@ -1,7 +1,9 @@
 import React from 'react';
 import './FaceRecognition.css';
 import ControlledTabs from "../ControlledTabs/ControlledTabs";
-import Dna from "../Dna/Dna";
+import ReactPlaceholder from 'react-placeholder';
+import "react-placeholder/lib/reactPlaceholder.css";
+
 // const FaceRecognition   = ({box, imageUrl}) =>{ 
 //     return (
 // <div className="center ma">
@@ -27,7 +29,14 @@ class FaceRecognition extends React.Component {
         }
     }
     render() {
-        const {boxes, imageUrl, input, heigh, key}= this.props;
+        const {
+            boxes,
+            imageUrl,
+            input,
+            heigh,
+            key,
+            onButtonSubmit
+        } = this.props;
         console.log('++++++++++++++')
     console.log(boxes)
         return(
@@ -45,7 +54,7 @@ class FaceRecognition extends React.Component {
                 </div>
             </div>
             <div>
-            {imageUrl ? <div className = 'relative  container mt3'style = {{width: '500px', top: `${heigh}px`}}> <ControlledTabs input={input}  key={key}/> </div> :<div></div>}
+            {imageUrl ?    <div className = 'relative  container mt3'style = {{width: '500px', top: `${heigh}px`}}> <ControlledTabs input={input}  key={key} onButtonSubmit={onButtonSubmit}/> </div>  :<div></div>}
             </div>
             
             </div>
