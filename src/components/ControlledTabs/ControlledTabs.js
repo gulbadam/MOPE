@@ -264,7 +264,7 @@ render() {
                 <Tab eventKey={3} culture={culture}  gender={gender} title="Demographics">
                     {(culture.length>1)?
                     <Demographics culture={culture}  gender={gender}/>:
-                    <div><h5>No faces detected</h5> </div>
+                    <div wait={1000}><h5>No faces detected</h5> </div>
                 }
                 </Tab>
             </Tabs>
