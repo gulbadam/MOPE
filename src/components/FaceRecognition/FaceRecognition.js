@@ -54,7 +54,7 @@ class FaceRecognition extends React.Component {
                 </div>
             </div>
             <div>
-            {imageUrl ?    <div className = 'relative  container mt3'style = {{width: '500px', top: `${heigh}px`}} > <ControlledTabs input={input}  key={key} onButtonSubmit={onButtonSubmit} /> </div>  :<div></div>}
+            {(imageUrl && heigh) ?    <div className = 'relative  container mt3' style = {{width: '500px', top: `${heigh}px`}} > <ControlledTabs input={input}  key={key} onButtonSubmit={onButtonSubmit} /> </div>  :<div></div>}
             </div>
             
             </div>

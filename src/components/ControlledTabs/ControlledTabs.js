@@ -116,74 +116,11 @@ handleGeneral=(general)=>{
     this.setState
 
 }
-callGeneral=()=>{
-    fetch('https://alluring-redwood-89517.herokuapp.com/general', {
-            //fetch('http://localhost:3001/general', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                input: this.props.input
-            })
-        })
-        .then(response => response.json())
-        .then(response => {
-            this.handleGeneral(this.handleResultsGeneral(response))
-            console.log(response)
-        })
-        .catch(err => console.log(err));
-}
-callColors=()=>{
-    fetch('https://alluring-redwood-89517.herokuapp.com/colors', {
-            //fetch('http://localhost:3001/colors', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                input: this.props.input
-            })
-        })
-        .then(response => response.json())
-        .then(response => {
-            this.handleColors(this.handleResultsColors(response))
-            console.log("arrrCOLORS");
-            console.log(response)
-        })
-        .catch(err => console.log(err));
-}
-callDemographics=()=>{
-   fetch('https://alluring-redwood-89517.herokuapp.com/demographics', {
-           //fetch('http://localhost:3001/demographics', {
-           method: 'POST',
-           headers: {
-               'Content-Type': 'application/json',
-           },
-           body: JSON.stringify({
-               input: this.props.input
-           })
-       })
-       .then(response => response.json())
-       .then(response => {
-           console.log(response)
-           if (response.outputs[0].data.regions) {
-               this.handleCulture(this.handleResultsMulticultural(response));
-               this.handleGender(this.handleResultGender(response));
-               this.handleAge(this.handeleResultsAge(response));
-               console.log(response.outputs[0].data.regions[0].data.face.multicultural_appearance.concepts);
-           } else {
-               const msg = "No faces detected";
-               console.log(msg);
-               this.setState({
-                   message: msg
-               });
-           }
-       })
-       .catch(err => console.log(err));
-}
+
+
+
     componentDidMount() {
-         this.handleSelect(this.state.key);
+         this.handleSelect(this.state.key)
         }
   componentDidUpdate(prevProps, prevState) {
 if (this.props.input !== prevProps.input) {
