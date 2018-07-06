@@ -85,7 +85,11 @@ class App extends Component {
         })
         .catch(err => console.log(err))
       }
+      
   }
+    
+
+ 
   loadUser = (data) => {
     this.setState({user: {
       id: data.id,
@@ -135,6 +139,7 @@ onButtonSubmit = (event) => {
       console.log(this.state.imageUrl)
       this.setState({key: 1})
       this.setState({boxes: []})
+      
     });
     fetch('https://alluring-redwood-89517.herokuapp.com/imageurl', {
     //fetch('http://localhost:3001/imageurl', {
