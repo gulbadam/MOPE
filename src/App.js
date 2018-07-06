@@ -31,7 +31,7 @@ const initialState = {
     general: [],
     culture: [],
     age: [],
-    route: 'home',
+    route: 'main',
     heigh: 0,
     isProfileOpen: false,
     isSignedIn: false,
@@ -153,8 +153,7 @@ onButtonSubmit = (event) => {
     .then(res => res.json())
           .then(response => {
             console.log("res", response)
-           
-            if (response) {
+           if (response) {
               fetch('https://alluring-redwood-89517.herokuapp.com/image', {
               //fetch('http://localhost:3001/image', {
                   method: 'put',
@@ -224,7 +223,7 @@ onButtonSubmit = (event) => {
       <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}  /> 
      <FaceRecognition boxes = {boxes} imageUrl = {imageUrl} input ={input} heigh={heigh} onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}/>
       </div>
-      : route === "home" && !isSignedIn ? <div><ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}  /> 
+      : route === "main" ? <div><ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}  /> 
      <FaceRecognition boxes = {boxes} imageUrl = {imageUrl} input ={input} heigh={heigh} onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}/></div>
       : (route==='signin' ?
       <Signin loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>

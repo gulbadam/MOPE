@@ -12,7 +12,7 @@ const Navigation = ({
     <div  onClick = {
       () => onRouteChange('home')
     }
-    className = 'ml6 mt3 ponter' >
+    className = 'ml4 mt3 ponter' >
     <Tilt className = "Tilt br2 shadow-2 fl w-60 pa"
         options = {{max: 65}}
         style = {{height: 90,
@@ -39,9 +39,9 @@ const Navigation = ({
       return(
         <div className = "mb5 pb5" >
     <div div onClick = {
-      () => onRouteChange('home')
+      () => onRouteChange('main')
     }
-    className = 'ml6 mt0 pointer' >
+    className = 'ml4 mt0 pointer' >
     <Tilt className = "Tilt br2 shadow-2 fl w-60 pa"
         options = {{max: 65}}
         style = {{height: 90,
@@ -62,7 +62,7 @@ const Navigation = ({
     className = "f3  i link dim black underline pa3 mt4  ml4 hover-purple pointer" > Sign In </p>
     
   
-  <p onClick={() => onRouteChange('resister')} className="f3  i link dim black underline pa3 mt4 ml4 hover-purple pointer">Register</p>
+  <p onClick={() => onRouteChange('resister')} className="f3  i link dim black underline pa3 mt4 ml1 hover-purple pointer">Register</p>
   </div>
    </div>
       );

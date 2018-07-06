@@ -18,9 +18,9 @@ class Signin extends React.Component {
           this.setState({
               signInPassword: event.target.value})
     }
-    // saveAuthTokenInSessions = (token) => {
-    //     window.sessionStorage.setItem('token', token);
-    // }
+     saveAuthTokenInSessions = (token) => {
+     window.sessionStorage.setItem('token', token);
+     }
     onSubmitSignIn = () => {
         //console.log(this.state);
         fetch('https://alluring-redwood-89517.herokuapp.com/signin', {
@@ -37,10 +37,15 @@ class Signin extends React.Component {
         .then(response => response.json())
             .then(user => {
                 if (user.id) {
+                    this.saveAuthTokenInSessions(user.token);
                     this.props.loadUser(user);
+                    
                     this.props.onRouteChange('home');
+                // .then(data =>{
+                
+                //     console.log("data", data);
                 // if (data && data.success === "true") {
-                //     //this.saveAuthTokenInSessions(data.token)
+                //     this.saveAuthTokenInSessions(data.token)
                 //     this.props.loadUser(data.user)
                 //     this.props.onRouteChange('home');
                 } else {
