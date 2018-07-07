@@ -63,7 +63,7 @@ return(
             <div className="measure">
                 <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                     <legend className = "f1 fw6 ph0 mh0" > Sign In </legend>
-                    <p className="db fw6 lh-copy f5">{this.state.msg}</p>
+                    <p className="red db fw6 lh-copy f5">{this.state.msg}</p>
                 
                     <div className="mt3">
                         <label className="db fw6 lh-copy f5" htmlFor="email-address">Email</label>
