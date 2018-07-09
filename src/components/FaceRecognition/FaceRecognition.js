@@ -1,7 +1,6 @@
 import React from 'react';
 import './FaceRecognition.css';
 import ControlledTabs from "../ControlledTabs/ControlledTabs";
-import ReactPlaceholder from 'react-placeholder';
 import "react-placeholder/lib/reactPlaceholder.css";
 
 // const FaceRecognition   = ({box, imageUrl}) =>{ 
@@ -35,14 +34,16 @@ class FaceRecognition extends React.Component {
             input,
             heigh,
             key,
-            onButtonSubmit
+            onButtonSubmit, 
+            message
         } = this.props;
         console.log('++++++++++++++')
     console.log(boxes)
         return(
             <div>
-                <div className = "center ma" >
-                    <div className = "absolute mt3" >
+                <div className = "center ma" > 
+                {imageUrl ?  <div className = "absolute mt3" > 
+             
                         <img id='inputimage' alt='' src={imageUrl} width='500px' heigh='auto' style={{ minWidth: 500 }}/>
                         
                         {boxes.map(box =>
@@ -51,7 +52,8 @@ class FaceRecognition extends React.Component {
                             style={{top: box.topRow, right: box.rightCol, bottom: box.bottomRow, left: box.leftCol}}>
                             </div>
                             )}
-                </div>
+                </div> : <div> <p>{message}</p></div>} 
+                    
             </div>
             <div>
             {(imageUrl && heigh) ?    <div className = 'relative  container mt3' style = {{width: '500px', top: `${heigh}px`}} > <ControlledTabs input={input}  key={key} onButtonSubmit={onButtonSubmit} /> </div>  :<div></div>}

@@ -36,6 +36,7 @@ const initialState = {
     isProfileOpen: false,
     isSignedIn: false,
     inputIsValid: false,
+    message: "",
     user: {
       id: '',
       name: '',
@@ -128,13 +129,17 @@ class App extends Component {
     console.log(event.target.value);
   }
  
-inputValidation =() =>{
- this.setState({
-   inputIsvalid: (this.state.input.match(/\.(jpeg|jpg|gif|png)$/) != null)
- })
-}
+// inputValidation =() =>{
+//   const imgPatern = (/\.(jpeg|jpg|gif|png)$/)
+//   console.log(imgPatern.test(this.state.input))
+//   return  imgPatern.test(this.state.input);
+//  //this.setState({
+//    //inputIsValid: (this.state.input.match(/\.(jpeg|jpg|gif|png)$/) != null)
+ 
+// }
 onButtonSubmit = (event) => {
     event.preventDefault();
+    //if (/\.(jpe?g|png|gif|bmp)$/i.test(this.state.input)) {
     this.setState({imageUrl: this.state.input}, () => {
       console.log(this.state.imageUrl)
       this.setState({key: 1})
@@ -178,8 +183,13 @@ onButtonSubmit = (event) => {
           })
           .catch(err => console.log(err));
           
-        
+        //}else{
+          //this.setState({messagege: "Not valid image"})
+         // console.log("image not valid")
+
+        //}
         }
+      
    onRouteChange =(route)=> {
     if(route==='signout') {
       this.setState(initialState)
@@ -197,8 +207,9 @@ onButtonSubmit = (event) => {
     }));
   }
   render() {
-    const {
+    const { 
       isSignedIn,
+      message,
       imageUrl,
       route,
       boxes,
@@ -221,7 +232,7 @@ onButtonSubmit = (event) => {
       {route === "home" && isSignedIn
       ? <div> <Rank name = {this.state.user.name} entries = {this.state.user.entries}/>
       <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}  /> 
-     <FaceRecognition boxes = {boxes} imageUrl = {imageUrl} input ={input} heigh={heigh} onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}/>
+     <FaceRecognition boxes = {boxes} imageUrl = {imageUrl} input ={input} heigh={heigh} onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit} message={message}/>
       </div>
       : route === "main" ? <div><ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}  /> 
      <FaceRecognition boxes = {boxes} imageUrl = {imageUrl} input ={input} heigh={heigh} onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}/></div>
