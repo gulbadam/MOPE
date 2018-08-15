@@ -113,7 +113,7 @@ handleGeneral=(general)=>{
     console.log("GENERAL");
     console.log(general)
     //this.setState ({key: 1})
-    this.setState
+    //this.setState
 
 }
 
@@ -229,7 +229,7 @@ render() {
     console.log(this.state.colors[0])
     console.log(typeof(this.state.colors))
     console.log("........")
-    console. log(this.state.key)
+    console.log(this.state.key)
     console.log(".........")
     const {colors, general, gender, age, culture} = this.state;
     

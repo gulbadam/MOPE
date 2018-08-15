@@ -1,6 +1,6 @@
 import React from 'react';
 import './ImageLinkForm.css';
-import Dna from '../Dna/Dna'
+//import Dna from '../Dna/Dna'
 
 const ImageLinkForm=({onInputChange, onButtonSubmit})=>{
     return (
