@@ -21,21 +21,20 @@ class Modal extends React.Component {
         // is inserted in the DOM tree.
         modalRoot.appendChild(this.el);
         this.setState({
-      mounted: true})
+      mounted: true});
     }
 
     componentWillUnmount() {
         modalRoot.removeChild(this.el);
-         if (this.el) {
-             modalRoot.removeChild(this.el);
-         }
+        //  if (this.el) {
+        //      modalRoot.removeChild(this.el);
+        //  }
     }
 
     render() {
         return ReactDOM.createPortal(
             this.props.children,
-            this.el,
-        );
+            this.el);
     }
 }
 
