@@ -4,6 +4,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 class ProfileIcon extends React.Component {
   constructor(props) {
     super(props);
+    //this.toggle =this.togle.bind(this);
     this.state = {
       dropdownOpen: false
     };
@@ -28,8 +29,8 @@ class ProfileIcon extends React.Component {
                   src="http://tachyons.io/img/logo.jpg"
                   className="br2 h4 w4 dib" alt="avatar" />
               </DropdownToggle>
-              <DropdownMenu className='b--transparent shadow-5' style={{marginTop: '20px', backgroundColor: 'rgba(255, 255, 255, 0.5)'}} right>
-                {/*<DropdownItem onClick={() => this.props.toggleModal()}>View Profile</DropdownItem>*/}
+              <DropdownMenu  center className='b--transparent shadow-5' style={{marginTop: '20px', backgroundColor: 'rgba(255, 255, 255, 0.5)'}} right>
+              <DropdownItem onClick={() => this.props.toggleModal()}>View Profile</DropdownItem>
                 <DropdownItem onClick={() => this.props.onRouteChange('signout')}>Sign Out</DropdownItem>
               </DropdownMenu>
             </Dropdown>

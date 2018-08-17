@@ -81,10 +81,12 @@ ba {
 
 .hover-white:hover {
     color: #fff;
+    
 }
 
 .hover-white:focus {
     color: #fff;
+  
 }
 
 .hover-bg-black:hover {

@@ -12,8 +12,8 @@ class Profile extends Component {
   }
 
   onProfileUpdate = (data) => {
-    //fetch(`https://alluring-redwood-89517.herokuapp.com/profile/${this.props.user.id}`, {
-    fetch(`http://localhost:3001/profile/${this.props.user.id}`, {
+    fetch(`https://alluring-redwood-89517.herokuapp.com/profile/${this.props.user.id}`, {
+    //fetch(`http://localhost:3001/profile/${this.props.user.id}`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
