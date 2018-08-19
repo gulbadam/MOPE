@@ -57,8 +57,8 @@ class App extends Component {
   componentDidMount() {
     const token = window.sessionStorage.getItem('token');
     if(token) {
-      fetch('https://alluring-redwood-89517.herokuapp.com/signin',{
-      //fetch('http://localhost:3000/signin', {
+      //fetch('https://alluring-redwood-89517.herokuapp.com/signin',{
+      fetch('http://localhost:3000/signin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'},
@@ -67,8 +67,8 @@ class App extends Component {
         .then(response => response.json())
         .then(data => {
           if (data && data.id) {
-            fetch(`https://alluring-redwood-89517.herokuapp.com/profile/${data.id}`, {
-            //fetch(`http://localhost:3001/profile/${data.id}`, {
+            //fetch(`https://alluring-redwood-89517.herokuapp.com/profile/${data.id}`, {
+            fetch(`http://localhost:3001/profile/${data.id}`, {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
@@ -146,8 +146,8 @@ onButtonSubmit = (event) => {
       this.setState({boxes: []})
       
     });
-    fetch('https://alluring-redwood-89517.herokuapp.com/imageurl', {
-    //fetch('http://localhost:3001/imageurl', {
+    //fetch('https://alluring-redwood-89517.herokuapp.com/imageurl', {
+    fetch('http://localhost:3001/imageurl', {
       method: 'post',
       headers: {
           'Accept': 'application/json',
@@ -159,8 +159,8 @@ onButtonSubmit = (event) => {
           .then(response => {
             console.log("res", response)
            if (response) {
-              fetch('https://alluring-redwood-89517.herokuapp.com/image', {
-              //fetch('http://localhost:3001/image', {
+              //fetch('https://alluring-redwood-89517.herokuapp.com/image', {
+              fetch('http://localhost:3001/image', {
                   method: 'put',
                   headers: {
       'Accept': 'application/json',

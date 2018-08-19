@@ -23,8 +23,8 @@ class Signin extends React.Component {
      }
     onSubmitSignIn = () => {
         //console.log(this.state);
-        fetch('https://alluring-redwood-89517.herokuapp.com/signin', {
-        //fetch('http://localhost:3001/signin', {
+        //fetch('https://alluring-redwood-89517.herokuapp.com/signin', {
+        fetch('http://localhost:3001/signin', {
             method: 'post',
             headers: {'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -35,19 +35,19 @@ class Signin extends React.Component {
             })
         })
         .then(response => response.json())
-            .then(user => {
-                if (user.id) {
-                    this.saveAuthTokenInSessions(user.token);
-                    this.props.loadUser(user);
+            // .then(user => {
+            //     if (user.id) {
+            //         this.saveAuthTokenInSessions(user.token);
+            //         this.props.loadUser(user);
                     
-                    this.props.onRouteChange('home');
-                // .then(data =>{
+            //         this.props.onRouteChange('home');
+                .then(data =>{
                 
-                //     console.log("data", data);
-                // if (data && data.success === "true") {
-                //     this.saveAuthTokenInSessions(data.token)
-                //     this.props.loadUser(data.user)
-                //     this.props.onRouteChange('home');
+                    console.log("data", data);
+                if (data && data.success === "true") {
+                    this.saveAuthTokenInSessions(data.token)
+                    this.props.loadUser(data.user)
+                    this.props.onRouteChange('home');
                 } else {
                     this.setState({msg: "email or password is invalid"})
                 } })

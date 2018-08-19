@@ -133,8 +133,8 @@ if (this.props.input !== prevProps.input) {
         case 1:
             console.log(`GENERAL ${key}`);
     
-            fetch('https://alluring-redwood-89517.herokuapp.com/general', {
-            //fetch('http://localhost:3001/general', {
+            //fetch('https://alluring-redwood-89517.herokuapp.com/general', {
+            fetch('http://localhost:3001/general', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -154,8 +154,8 @@ if (this.props.input !== prevProps.input) {
         case 2:
     
     console.log(`COLOR ${key}`);
-    fetch('https://alluring-redwood-89517.herokuapp.com/colors', {
-    //fetch('http://localhost:3001/colors', {
+    //fetch('https://alluring-redwood-89517.herokuapp.com/colors', {
+    fetch('http://localhost:3001/colors', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -174,8 +174,8 @@ if (this.props.input !== prevProps.input) {
         break;
             case 3:
     console.log(`DEMOGRAFICS ${key}`);
-    fetch('https://alluring-redwood-89517.herokuapp.com/demographics', {
-    //fetch('http://localhost:3001/demographics', {
+    //fetch('https://alluring-redwood-89517.herokuapp.com/demographics', {
+    fetch('http://localhost:3001/demographics', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -203,8 +203,8 @@ if (this.props.input !== prevProps.input) {
             default:
             console.log(`GENERAL ${key}`);
 
-            fetch('https://alluring-redwood-89517.herokuapp.com/general', {
-                    //fetch('http://localhost:3001/general', {
+            //fetch('https://alluring-redwood-89517.herokuapp.com/general', {
+                    fetch('http://localhost:3001/general', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
