@@ -26,9 +26,7 @@ class Signin extends React.Component {
         //fetch('https://alluring-redwood-89517.herokuapp.com/signin', {
         fetch('http://localhost:3001/signin', {
             method: 'post',
-            headers: {'Content-Type': 'application/json',
-        'Accept': 'application/json'
-        },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 email: this.state.signInEmail,
                 password: this.state.signInPassword
@@ -42,8 +40,6 @@ class Signin extends React.Component {
                     
             //         this.props.onRouteChange('home');
                 .then(data =>{
-                
-                    console.log("data", data);
                 if (data && data.success === "true") {
                     this.saveAuthTokenInSessions(data.token)
                     this.props.loadUser(data.user)

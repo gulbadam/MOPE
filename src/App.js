@@ -58,7 +58,7 @@ class App extends Component {
     const token = window.sessionStorage.getItem('token');
     if(token) {
       //fetch('https://alluring-redwood-89517.herokuapp.com/signin',{
-      fetch('http://localhost:3000/signin', {
+      fetch('http://localhost:3001/signin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'},
