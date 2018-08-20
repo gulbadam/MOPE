@@ -9,6 +9,13 @@ class Rank extends React.Component {
     componentDidMount = () => {
       this.generateEmoji(this.props.entries)
     };
+    componentDidUpdate =  (prevProps, prevState) => {
+        if (prevProps.entries===this.props.entries && prevProps.name === this.props.name) {
+            return null
+        }
+        this.generateEmoji(this.props.entries);
+
+    }
     generateEmoji =(entries) => {
         fetch(`https://4sjb4co4q0.execute-api.us-east-1.amazonaws.com/dev/rank?=${entries}`)
         .then(response => response.json())
